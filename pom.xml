@@ -70,6 +70,13 @@
         </dependency>
         <dependency>
             <groupId>me.blackvein.quests</groupId>
+            <artifactId>quests-objectives</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/CustomObjective.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>me.blackvein.quests</groupId>
             <artifactId>quests-requirements</artifactId>
             <version>1.0</version>
             <scope>system</scope>
