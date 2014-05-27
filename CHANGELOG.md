@@ -3,3 +3,4 @@
 # 1.0
 
  - First release, Magic/Quests integration module.
+ - Add Magic Loot custom rewards
