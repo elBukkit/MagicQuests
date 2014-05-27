@@ -27,7 +27,17 @@ public class SpellCastObjective extends CustomObjective {
         Player player = event.getMage().getPlayer();
         if (player == null) return;
 
-        Map<String, Object> map = getDatamap(player, this);
+        // This fails in a pretty bad way if the player is not on a quest currently
+        // There isn't a super clean way to check for this state so we'll just catch
+        // and ignore expections :\
+        Map<String, Object> map = null;
+        try {
+            map = getDatamap(player, this);
+        } catch (Exception ex) {
+            map = null;
+        }
+        if (map == null) return;
+
         String spellName = (String)map.get("Spell");
         if (spellName == null) return;
 
