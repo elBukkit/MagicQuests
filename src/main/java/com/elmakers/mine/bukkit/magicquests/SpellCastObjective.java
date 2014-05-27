@@ -17,7 +17,7 @@ public class SpellCastObjective extends CustomObjective {
         this.setEnableCount(true);
         this.setShowCount(true);
         this.addData("Spell");
-        this.setCountPrompt("Enter the number of times the player must cast the spell:");
+        this.setCountPrompt("Enter the number of times the player must cast the spell:");
         this.addDescription("Spell", "The name of the Magic spell the player must have cast.");
         this.setDisplay("Cast %Spell%: %count%");
     }
