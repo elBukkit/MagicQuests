@@ -7,3 +7,4 @@
  - Add separate Magic wand, spell, upgrade and brush rewards
  - Add "Has cast spell" requirement
  - Add "Cast spell" objective
+ - Add "Has Wand" requirement
