@@ -2,6 +2,7 @@ package com.elmakers.mine.bukkit.magicquests;
 
 import com.elmakers.mine.bukkit.api.event.CastEvent;
 import com.elmakers.mine.bukkit.api.spell.Spell;
+import com.elmakers.mine.bukkit.api.spell.SpellResult;
 import me.blackvein.quests.CustomObjective;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -26,6 +27,8 @@ public class SpellCastObjective extends CustomObjective {
     public void onSpellCast(CastEvent event) {
         Player player = event.getMage().getPlayer();
         if (player == null) return;
+
+        if (event.getSpellResult() != SpellResult.CAST) return;
 
         // This fails in a pretty bad way if the player is not on a quest currently
         // There isn't a super clean way to check for this state so we'll just catch
