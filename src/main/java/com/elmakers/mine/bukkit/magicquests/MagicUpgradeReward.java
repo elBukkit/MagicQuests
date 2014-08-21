@@ -3,6 +3,7 @@ package com.elmakers.mine.bukkit.magicquests;
 import com.elmakers.mine.bukkit.api.magic.MagicAPI;
 import com.elmakers.mine.bukkit.api.wand.Wand;
 import me.blackvein.quests.CustomReward;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -40,6 +41,8 @@ public class MagicUpgradeReward extends CustomReward {
             Wand wand = api.createUpgrade(wandKey);
             if (wand != null) {
                 api.giveItemToPlayer(player, wand.getItem());
+            } else {
+                Bukkit.getLogger().warning("Invalid upgrade given as Quests reward: " + wandKey);
             }
         }
     }

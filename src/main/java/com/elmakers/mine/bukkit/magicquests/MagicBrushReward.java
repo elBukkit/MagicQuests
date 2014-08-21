@@ -2,8 +2,10 @@ package com.elmakers.mine.bukkit.magicquests;
 
 import com.elmakers.mine.bukkit.api.magic.MagicAPI;
 import me.blackvein.quests.CustomReward;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Map;
@@ -36,7 +38,12 @@ public class MagicBrushReward extends CustomReward {
         MagicAPI api = getAPI(player.getServer());
         String brushKey = (String)stringObjectMap.get("Brush");
         if (brushKey != null) {
-            api.giveItemToPlayer(player, api.createBrushItem(brushKey));
+            ItemStack item = api.createBrushItem(brushKey);
+            if (item != null) {
+                api.giveItemToPlayer(player, item);
+            } else {
+                Bukkit.getLogger().warning("Invalid brush given as Quests reward: " + brushKey);
+            }
         }
     }
 }

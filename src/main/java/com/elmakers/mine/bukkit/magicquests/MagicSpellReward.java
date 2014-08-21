@@ -2,8 +2,10 @@ package com.elmakers.mine.bukkit.magicquests;
 
 import com.elmakers.mine.bukkit.api.magic.MagicAPI;
 import me.blackvein.quests.CustomReward;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Map;
@@ -36,7 +38,12 @@ public class MagicSpellReward extends CustomReward {
         MagicAPI api = getAPI(player.getServer());
         String spellKey = (String)stringObjectMap.get("Spell");
         if (spellKey != null) {
-            api.giveItemToPlayer(player, api.createSpellItem(spellKey));
+            ItemStack item = api.createSpellItem(spellKey);
+            if (item != null) {
+                api.giveItemToPlayer(player, item);
+            } else {
+                Bukkit.getLogger().warning("Invalid spell given as Quests reward: " + spellKey);
+            }
         }
     }
 }

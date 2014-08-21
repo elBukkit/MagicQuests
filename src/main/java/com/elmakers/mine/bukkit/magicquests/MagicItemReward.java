@@ -2,6 +2,7 @@ package com.elmakers.mine.bukkit.magicquests;
 
 import com.elmakers.mine.bukkit.api.magic.MagicAPI;
 import me.blackvein.quests.CustomReward;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -37,6 +38,8 @@ public class MagicItemReward extends CustomReward {
         String itemKey = (String)stringObjectMap.get("Item");
         if (itemKey != null) {
             api.giveItemToPlayer(player, api.createItem(itemKey));
+        } else {
+            Bukkit.getLogger().warning("Invalid item given as Quests reward: " + itemKey);
         }
     }
 }
