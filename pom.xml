@@ -61,24 +61,10 @@
 		</dependency>
         <dependency>
             <groupId>me.blackvein.quests</groupId>
-            <artifactId>quests-rewards</artifactId>
+            <artifactId>quests</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/CustomReward.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>me.blackvein.quests</groupId>
-            <artifactId>quests-objectives</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/CustomObjective.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>me.blackvein.quests</groupId>
-            <artifactId>quests-requirements</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/CustomRequirement.jar</systemPath>
+            <systemPath>${project.basedir}/lib/Quests.jar</systemPath>
         </dependency>
 	</dependencies>
 	<repositories>

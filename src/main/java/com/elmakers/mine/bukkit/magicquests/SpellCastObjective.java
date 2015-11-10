@@ -4,7 +4,9 @@ import com.elmakers.mine.bukkit.api.event.CastEvent;
 import com.elmakers.mine.bukkit.api.spell.Spell;
 import com.elmakers.mine.bukkit.api.spell.SpellResult;
 import me.blackvein.quests.CustomObjective;
-import org.bukkit.Bukkit;
+import me.blackvein.quests.Quest;
+import me.blackvein.quests.Quester;
+import me.blackvein.quests.Quests;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
@@ -33,20 +35,27 @@ public class SpellCastObjective extends CustomObjective {
         // This fails in a pretty bad way if the player is not on a quest currently
         // There isn't a super clean way to check for this state so we'll just catch
         // and ignore expections :\
-        Map<String, Object> map = null;
-        try {
-            map = getDatamap(player, this);
-        } catch (Exception ex) {
-            map = null;
+        Quester quester = Quests.getInstance().getQuester(player.getUniqueId());
+        if (quester == null) {
+            return;
         }
-        if (map == null) return;
 
-        String spellName = (String)map.get("Spell");
-        if (spellName == null) return;
+        for (Quest quest : quester.currentQuests.keySet()) {
+            Map<String, Object> map = null;
+            try {
+                map = getDatamap(player, this, quest);
+            } catch (Exception ex) {
+                map = null;
+            }
+            if (map == null) continue;
 
-        Spell spell = event.getSpell();
-        if (!spellName.equalsIgnoreCase(spell.getName()) && !spellName.equalsIgnoreCase(spell.getKey())) return;
+            String spellName = (String)map.get("Spell");
+            if (spellName == null) return;
 
-        incrementObjective(player, this, 1);
+            Spell spell = event.getSpell();
+            if (!spellName.equalsIgnoreCase(spell.getName()) && !spellName.equalsIgnoreCase(spell.getKey())) return;
+
+            incrementObjective(player, this, 1, quest);
+        }
     }
 }
