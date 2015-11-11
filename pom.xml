@@ -62,9 +62,8 @@
         <dependency>
             <groupId>me.blackvein.quests</groupId>
             <artifactId>quests</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/Quests.jar</systemPath>
+            <version>2.5.3</version>
+            <scope>provided</scope>
         </dependency>
 	</dependencies>
 	<repositories>
