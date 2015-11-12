@@ -30,7 +30,7 @@ public class SpellCastRequirement extends CustomRequirement {
         this.setAuthor("NathanWolf");
         this.addData("Spell");
         this.addData("Cast Count");
-        this.addDescription("Spell", "The name of the Magic spell the player must have cast.");
+        this.addDescription("Spell", "The KEY name of the Magic spell the player must have cast.");
         this.addDescription("Cast Count", "How many times the player must have cast the spell.");
     }
 
