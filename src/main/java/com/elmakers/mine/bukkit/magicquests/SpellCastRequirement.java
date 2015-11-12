@@ -26,7 +26,7 @@ public class SpellCastRequirement extends CustomRequirement {
     }
 
     public SpellCastRequirement() {
-        this.setName("Magic Spell Cast");
+        this.setName("Has Cast Magic Spell");
         this.setAuthor("NathanWolf");
         this.addData("Spell");
         this.addData("Cast Count");
