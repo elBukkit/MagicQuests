@@ -31,9 +31,6 @@ public class SpellCastObjective extends CustomObjective {
     public void onSpellCast(CastEvent event) {
         Mage mage = event.getMage();
 
-        mage.sendDebugMessage(ChatColor.GRAY + "Checking spell cast objective for cast of " + ChatColor.GOLD + event.getSpell().getName() +
-                ChatColor.BLUE + " with result of " + ChatColor.YELLOW + event.getSpellResult());
-
         Player player = event.getMage().getPlayer();
         if (player == null) return;
 
