@@ -44,10 +44,13 @@ public class SpellCastObjective extends CustomObjective {
             return;
         }
 
-        mage.sendDebugMessage(ChatColor.BLUE + "Checking spell cast objective for cast of " + ChatColor.GOLD + event.getSpell().getName() +
+        boolean isDebug = mage.getDebugLevel() > 0;
+
+        if (isDebug) mage.sendDebugMessage(ChatColor.BLUE + "Checking spell cast objective for cast of " + ChatColor.GOLD + event.getSpell().getName() +
                 ChatColor.BLUE + " with " + ChatColor.YELLOW + quester.currentQuests.size() +
                 ChatColor.BLUE + " active quests", 5);
 
+        Spell spell = event.getSpell();
         for (Quest quest : quester.currentQuests.keySet()) {
             Map<String, Object> map = null;
             try {
@@ -56,20 +59,22 @@ public class SpellCastObjective extends CustomObjective {
                 map = null;
             }
             if (map == null) {
-                mage.sendDebugMessage("No active data for this objective for quest: " + ChatColor.GOLD + quest.getName(), 5);
+                if (isDebug) mage.sendDebugMessage(ChatColor.DARK_RED + "No active data for this objective for quest: " + ChatColor.GOLD + quest.getName(), 7);
                 continue;
             }
 
             String spellName = (String)map.get("Spell");
             if (spellName == null) {
-                mage.sendDebugMessage(ChatColor.RED + "No active data for this objective for quest: " + ChatColor.GOLD + quest.getName(), 5);
-                return;
+                if (isDebug) mage.sendDebugMessage(ChatColor.DARK_RED + "No active Spell data for this objective for quest: " + ChatColor.GOLD + quest.getName(), 7);
+                continue;
             }
 
-            Spell spell = event.getSpell();
-            if (!spellName.equalsIgnoreCase(spell.getName()) && !spellName.equalsIgnoreCase(spell.getKey())) break;
+            if (isDebug) mage.sendDebugMessage(ChatColor.BLUE + "Checking : " + ChatColor.GOLD +
+                    quest.getName() + ChatColor.BLUE + " looking for " + ChatColor.YELLOW + spellName, 7);
 
-            mage.sendDebugMessage(ChatColor.GREEN + "Incrementing objective for quest: " + ChatColor.GOLD + quest.getName(), 5);
+            if (!spellName.equalsIgnoreCase(spell.getName()) && !spellName.equalsIgnoreCase(spell.getKey())) continue;
+
+            if (isDebug) mage.sendDebugMessage(ChatColor.GREEN + "Incrementing objective for quest: " + ChatColor.GOLD + quest.getName(), 2);
             incrementObjective(player, this, 1, quest);
         }
     }
