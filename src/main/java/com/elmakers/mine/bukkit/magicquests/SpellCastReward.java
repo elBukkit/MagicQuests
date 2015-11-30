@@ -42,7 +42,7 @@ public class SpellCastReward extends CustomReward {
         MagicAPI api = getAPI(player.getServer());
         String spellKey = (String)stringObjectMap.get("Spell");
         if (spellKey != null) {
-            String[] extraParameters = StringUtils.split((String)stringObjectMap.get("Spell"), ",");
+            String[] extraParameters = StringUtils.split((String)stringObjectMap.get("Parameters"), ' ');
             ConfigurationSection parameters = null;
             if (extraParameters != null && extraParameters.length > 0) {
                 parameters = new MemoryConfiguration();
