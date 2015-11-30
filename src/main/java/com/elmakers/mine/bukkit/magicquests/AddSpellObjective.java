@@ -41,7 +41,7 @@ public class AddSpellObjective extends CustomObjective {
         }
         boolean isDebug = mage.getDebugLevel() > 0;
 
-        if (isDebug) mage.sendDebugMessage(ChatColor.BLUE + "Checking spell cast objective for add of " + ChatColor.GOLD + event.getSpell().getName() +
+        if (isDebug) mage.sendDebugMessage(ChatColor.BLUE + "Checking add spell objective for add of " + ChatColor.GOLD + event.getSpell().getName() +
                 ChatColor.BLUE + " with " + ChatColor.YELLOW + quester.currentQuests.size() +
                 ChatColor.BLUE + " active quests", 5);
 
@@ -67,7 +67,7 @@ public class AddSpellObjective extends CustomObjective {
             if (isDebug) mage.sendDebugMessage(ChatColor.BLUE + "Checking : " + ChatColor.GOLD +
                     quest.getName() + ChatColor.BLUE + " looking for " + ChatColor.YELLOW + spellName, 7);
 
-            if (!spellName.equalsIgnoreCase(spell.getName()) && !spellName.equalsIgnoreCase(spell.getKey())) continue;
+            if (!spellName.equalsIgnoreCase("any") && !spellName.equalsIgnoreCase(spell.getName()) && !spellName.equalsIgnoreCase(spell.getKey())) continue;
 
             if (isDebug) mage.sendDebugMessage(ChatColor.GREEN + "Incrementing objective for quest: " + ChatColor.GOLD + quest.getName(), 2);
             incrementObjective(player, this, 1, quest);
