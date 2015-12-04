@@ -3,6 +3,7 @@ package com.elmakers.mine.bukkit.magicquests;
 import com.elmakers.mine.bukkit.api.event.AddSpellEvent;
 import com.elmakers.mine.bukkit.api.magic.Mage;
 import com.elmakers.mine.bukkit.api.spell.SpellTemplate;
+import com.elmakers.mine.bukkit.api.wand.Wand;
 import me.blackvein.quests.CustomObjective;
 import me.blackvein.quests.Quest;
 import me.blackvein.quests.Quester;
@@ -67,7 +68,18 @@ public class AddSpellObjective extends CustomObjective {
             if (isDebug) mage.sendDebugMessage(ChatColor.BLUE + "Checking : " + ChatColor.GOLD +
                     quest.getName() + ChatColor.BLUE + " looking for " + ChatColor.YELLOW + spellName, 7);
 
-            if (!spellName.equalsIgnoreCase("any") && !spellName.equalsIgnoreCase(spell.getName()) && !spellName.equalsIgnoreCase(spell.getKey())) continue;
+            if (!spellName.equalsIgnoreCase("any") && !spellName.equalsIgnoreCase(spell.getName()) && !spellName.equalsIgnoreCase(spell.getKey())) {
+                // Check for wand already having spell
+                Wand wand = mage.getActiveWand();
+                if (wand == null) {
+                    continue;
+                }
+                if (!wand.hasSpell(spellName)) {
+                    continue;
+                }
+
+                if (isDebug) mage.sendDebugMessage(ChatColor.BLUE + "Player already has " + ChatColor.YELLOW + spellName, 7);
+            }
 
             if (isDebug) mage.sendDebugMessage(ChatColor.GREEN + "Incrementing objective for quest: " + ChatColor.GOLD + quest.getName(), 2);
             incrementObjective(player, this, 1, quest);
