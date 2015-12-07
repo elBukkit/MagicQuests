@@ -70,11 +70,11 @@ public class AddSpellObjective extends CustomObjective {
 
             if (!spellName.equalsIgnoreCase("any") && !spellName.equalsIgnoreCase(spell.getName()) && !spellName.equalsIgnoreCase(spell.getKey())) {
                 // Check for wand already having spell
-                Wand wand = mage.getActiveWand();
+                Wand wand = event.getWand();
                 if (wand == null) {
                     continue;
                 }
-                if (!wand.hasSpell(spellName)) {
+                if (!wand.hasSpell(spellName.toLowerCase())) {
                     continue;
                 }
 
