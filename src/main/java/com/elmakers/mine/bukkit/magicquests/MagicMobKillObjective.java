@@ -71,7 +71,7 @@ public class MagicMobKillObjective extends CustomObjective {
             if (isDebug) mage.sendDebugMessage(ChatColor.BLUE + "Checking : " + ChatColor.GOLD +
                     quest.getName() + ChatColor.BLUE + " looking for " + ChatColor.YELLOW + mobName, 7);
 
-            if (!mobName.equalsIgnoreCase(entityData.getName()) && !mobName.equalsIgnoreCase(entityData.getKey())) continue;
+            if (!mobName.equalsIgnoreCase(ChatColor.stripColor(entityData.getName())) && !mobName.equalsIgnoreCase(entityData.getKey())) continue;
 
             if (isDebug) mage.sendDebugMessage(ChatColor.GREEN + "Incrementing objective for quest: " + ChatColor.GOLD + quest.getName(), 2);
             incrementObjective(player, this, 1, quest);
