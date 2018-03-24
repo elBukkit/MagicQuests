@@ -7,6 +7,8 @@ import me.blackvein.quests.CustomObjective;
 import me.blackvein.quests.Quest;
 import me.blackvein.quests.Quester;
 import me.blackvein.quests.Quests;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,6 +16,8 @@ import org.bukkit.event.EventHandler;
 import java.util.Map;
 
 public class CraftWandObjective extends CustomObjective {
+    // .... why did Quests.getInstance need to be made non-static.. ??
+    private static Quests quests = (Quests) Bukkit.getServer().getPluginManager().getPlugin("Quests");
 
     public CraftWandObjective() {
         this.setName("Craft Magic Wand");
@@ -37,7 +41,7 @@ public class CraftWandObjective extends CustomObjective {
         // This fails in a pretty bad way if the player is not on a quest currently
         // There isn't a super clean way to check for this state so we'll just catch
         // and ignore expections :\
-        Quester quester = Quests.getInstance().getQuester(player.getUniqueId());
+        Quester quester = quests.getQuester(player.getUniqueId());
         if (quester == null) {
             return;
         }

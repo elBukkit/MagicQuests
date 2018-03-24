@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# 1.1
+
+ - Updated to work with Quests 3.2.7 and up
+
 # 1.0
 
  - First release, Magic/Quests integration module.
