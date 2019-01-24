@@ -28,8 +28,7 @@ public class MagicItemReward extends CustomReward {
         this.setName("Magic Item");
         this.setAuthor("NathanWolf");
         this.setRewardName("Magic Item");
-        this.addData("Item");
-        this.addDescription("Item", "The name of the Magic item (wand, spell, upgrade) to give to the player.");
+        this.addStringPrompt("Item", "The name of the Magic item (wand, spell, upgrade) to give to the player.", null);
     }
 
     @Override

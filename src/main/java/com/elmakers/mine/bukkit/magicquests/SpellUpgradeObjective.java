@@ -22,11 +22,9 @@ public class SpellUpgradeObjective extends CustomObjective {
     public SpellUpgradeObjective() {
         this.setName("Magic Spell Upgrade");
         this.setAuthor("NathanWolf");
-        this.setEnableCount(true);
         this.setShowCount(true);
-        this.addData("Spell");
         this.setCountPrompt("Enter the number of times the player must upgrade the spell:");
-        this.addDescription("Spell", "The name of the Magic spell the player must upgrade.");
+        this.addStringPrompt("Spell", "The name of the Magic spell the player must upgrade.", null);
         this.setDisplay("Upgrade %Spell%: %count%");
     }
 
@@ -48,14 +46,14 @@ public class SpellUpgradeObjective extends CustomObjective {
         boolean isDebug = mage.getDebugLevel() > 0;
 
         if (isDebug) mage.sendDebugMessage(ChatColor.BLUE + "Checking spell cast objective for upgrade of " + ChatColor.GOLD + event.getOldSpell().getName() +
-                ChatColor.BLUE + " with " + ChatColor.YELLOW + quester.currentQuests.size() +
+                ChatColor.BLUE + " with " + ChatColor.YELLOW + quester.getCurrentQuests().size() +
                 ChatColor.BLUE + " active quests", 5);
 
         SpellTemplate spell = event.getOldSpell();
-        for (Quest quest : quester.currentQuests.keySet()) {
+        for (Quest quest : quester.getCurrentQuests().keySet()) {
             Map<String, Object> map = null;
             try {
-                map = getDatamap(player, this, quest);
+                map = getDataForPlayer(player, this, quest);
             } catch (Exception ex) {
                 map = null;
             }

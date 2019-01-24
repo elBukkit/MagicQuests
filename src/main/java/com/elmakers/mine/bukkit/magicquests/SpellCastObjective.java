@@ -23,11 +23,9 @@ public class SpellCastObjective extends CustomObjective {
     public SpellCastObjective() {
         this.setName("Magic Spell Cast");
         this.setAuthor("NathanWolf");
-        this.setEnableCount(true);
         this.setShowCount(true);
-        this.addData("Spell");
         this.setCountPrompt("Enter the number of times the player must cast the spell:");
-        this.addDescription("Spell", "The name of the Magic spell the player must cast.");
+        this.addStringPrompt("Spell", "The name of the Magic spell the player must cast.", null);
         this.setDisplay("Cast %Spell%: %count%");
     }
 
@@ -51,14 +49,14 @@ public class SpellCastObjective extends CustomObjective {
         boolean isDebug = mage.getDebugLevel() > 0;
 
         if (isDebug) mage.sendDebugMessage(ChatColor.BLUE + "Checking spell cast objective for cast of " + ChatColor.GOLD + event.getSpell().getName() +
-                ChatColor.BLUE + " with " + ChatColor.YELLOW + quester.currentQuests.size() +
+                ChatColor.BLUE + " with " + ChatColor.YELLOW + quester.getCurrentQuests().size() +
                 ChatColor.BLUE + " active quests", 5);
 
         Spell spell = event.getSpell();
-        for (Quest quest : quester.currentQuests.keySet()) {
+        for (Quest quest : quester.getCurrentQuests().keySet()) {
             Map<String, Object> map = null;
             try {
-                map = getDatamap(player, this, quest);
+                map = getDataForPlayer(player, this, quest);
             } catch (Exception ex) {
                 map = null;
             }

@@ -29,8 +29,7 @@ public class MagicSpellReward extends CustomReward {
         this.setName("Magic Spell");
         this.setAuthor("NathanWolf");
         this.setRewardName("Spell");
-        this.addData("Spell");
-        this.addDescription("Spell", "The KEY name of the Magic spell to give to the player.");
+        this.addStringPrompt("Spell", "The KEY name of the Magic spell to give to the player.", null);
     }
 
     @Override

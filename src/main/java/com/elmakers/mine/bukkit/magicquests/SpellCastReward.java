@@ -31,10 +31,8 @@ public class SpellCastReward extends CustomReward {
         this.setName("Spell Cast");
         this.setAuthor("NathanWolf");
         this.setRewardName("Magical Event");
-        this.addData("Spell");
-        this.addDescription("Spell", "The KEY name of the Magic spell to cast as the player.");
-        this.addData("Parameters");
-        this.addDescription("Parameters", "Any parameters to pass to the spell on cast.");
+        this.addStringPrompt("Spell", "The KEY name of the Magic spell to cast as the player.", null);
+        this.addStringPrompt("Parameters", "Any parameters to pass to the spell on cast.", null);
     }
 
     @Override

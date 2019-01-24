@@ -29,8 +29,7 @@ public class MagicWandReward extends CustomReward {
         this.setName("Magic Wand");
         this.setAuthor("NathanWolf");
         this.setRewardName("Wand");
-        this.addData("Wand");
-        this.addDescription("Wand", "The key name of the Magic wand to give to the player.");
+        this.addStringPrompt("Wand", "The key name of the Magic wand to give to the player.", null);
     }
 
     @Override

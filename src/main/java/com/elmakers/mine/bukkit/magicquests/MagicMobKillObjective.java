@@ -23,11 +23,9 @@ public class MagicMobKillObjective extends CustomObjective {
     public MagicMobKillObjective() {
         this.setName("Kill Magic Mob");
         this.setAuthor("NathanWolf");
-        this.setEnableCount(true);
         this.setShowCount(true);
-        this.addData("Mob");
         this.setCountPrompt("Enter the number of times the player must kill this mob:");
-        this.addDescription("Mob", "The name or key of the Magic Mob the player must kill.");
+        this.addStringPrompt("Mob", "The name or key of the Magic Mob the player must kill.", null);
         this.setDisplay("Kill %Mob%: %count%");
     }
 
@@ -52,13 +50,13 @@ public class MagicMobKillObjective extends CustomObjective {
         EntityData entityData = event.getEntityData();
         
         if (isDebug) mage.sendDebugMessage(ChatColor.BLUE + "Checking mob kill objective for " + ChatColor.GOLD + entityData.describe() +
-                ChatColor.BLUE + " with " + ChatColor.YELLOW + quester.currentQuests.size() +
+                ChatColor.BLUE + " with " + ChatColor.YELLOW + quester.getCurrentQuests().size() +
                 ChatColor.BLUE + " active quests", 5);
 
-        for (Quest quest : quester.currentQuests.keySet()) {
+        for (Quest quest : quester.getCurrentQuests().keySet()) {
             Map<String, Object> map = null;
             try {
-                map = getDatamap(player, this, quest);
+                map = getDataForPlayer(player, this, quest);
             } catch (Exception ex) {
                 map = null;
             }

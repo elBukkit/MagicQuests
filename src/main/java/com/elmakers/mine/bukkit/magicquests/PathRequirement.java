@@ -30,10 +30,8 @@ public class PathRequirement extends CustomRequirement {
     public PathRequirement() {
         this.setName("Has Wand Path");
         this.setAuthor("NathanWolf");
-        this.addData("Wand");
-        this.addData("Path");
-        this.addDescription("Wand", "The template to look at (normally 'default')");
-        this.addDescription("Path", "What path the player must be on.");
+        this.addStringPrompt("Wand", "The template to look at (normally 'default')", null);
+        this.addStringPrompt("Path", "What path the player must be on.", null);
     }
 
     @Override
