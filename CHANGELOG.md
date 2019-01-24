@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# 1.2
+
+ - Updated to work with Quests 3.6.0 and up
+
+
 # 1.1
 
  - Updated to work with Quests 3.2.7 and up

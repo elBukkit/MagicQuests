@@ -24,11 +24,9 @@ public class AddSpellObjective extends CustomObjective {
     public AddSpellObjective() {
         this.setName("Add Magic Spell");
         this.setAuthor("NathanWolf");
-        this.setEnableCount(true);
         this.setShowCount(true);
-        this.addData("Spell");
         this.setCountPrompt("Enter the number of times the player must learn the spell:");
-        this.addDescription("Spell", "The name of the Magic spell the player must learn.");
+        this.addStringPrompt("Spell", "The name of the Magic spell the player must learn.", null);
         this.setDisplay("Learn %Spell%");
     }
 
@@ -48,14 +46,14 @@ public class AddSpellObjective extends CustomObjective {
         boolean isDebug = mage.getDebugLevel() > 0;
 
         if (isDebug) mage.sendDebugMessage(ChatColor.BLUE + "Checking add spell objective for add of " + ChatColor.GOLD + event.getSpell().getName() +
-                ChatColor.BLUE + " with " + ChatColor.YELLOW + quester.currentQuests.size() +
+                ChatColor.BLUE + " with " + ChatColor.YELLOW + quester.getCurrentQuests().size() +
                 ChatColor.BLUE + " active quests", 5);
 
         SpellTemplate spell = event.getSpell();
-        for (Quest quest : quester.currentQuests.keySet()) {
+        for (Quest quest : quester.getCurrentQuests().keySet()) {
             Map<String, Object> map = null;
             try {
-                map = getDatamap(player, this, quest);
+                map = getDataForPlayer(player, this, quest);
             } catch (Exception ex) {
                 map = null;
             }

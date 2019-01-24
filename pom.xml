@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.elmakers.mine.bukkit.plugins</groupId>
 	<artifactId>MagicQuests</artifactId>
-	<version>1.1</version>
+	<version>1.2</version>
 	<name>Magic Quests</name>
 	<url>http://mine.elmakers.com</url>
 
@@ -61,7 +61,7 @@
         <dependency>
             <groupId>me.blackvein.quests</groupId>
             <artifactId>quests</artifactId>
-            <version>3.2.8</version>
+            <version>3.6.0</version>
             <scope>provided</scope>
         </dependency>
 	</dependencies>

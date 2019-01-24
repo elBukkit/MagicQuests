@@ -29,8 +29,7 @@ public class ActiveSpellRequirement extends CustomRequirement {
     public ActiveSpellRequirement() {
         this.setName("Has Active Spell");
         this.setAuthor("NathanWolf");
-        this.addData("Spell");
-        this.addDescription("Spell", "The KEY name of the spell a player must have active");
+        this.addStringPrompt("Spell", "The KEY name of the spell a player must have active", null);
     }
 
     @Override

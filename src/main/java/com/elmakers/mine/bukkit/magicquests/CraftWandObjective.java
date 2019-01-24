@@ -22,11 +22,9 @@ public class CraftWandObjective extends CustomObjective {
     public CraftWandObjective() {
         this.setName("Craft Magic Wand");
         this.setAuthor("NathanWolf");
-        this.setEnableCount(true);
         this.setShowCount(true);
-        this.addData("Wand");
         this.setCountPrompt("Enter the number of times the player must craft the item:");
-        this.addDescription("Wand", "The name of the Magic wand the player must craft.");
+        this.addStringPrompt("Wand", "The name of the Magic wand the player must craft.", null);
         this.setDisplay("Craft %Wand%: %count%");
     }
 
@@ -50,13 +48,13 @@ public class CraftWandObjective extends CustomObjective {
         boolean isDebug = mage.getDebugLevel() > 0;
 
         if (isDebug) mage.sendDebugMessage(ChatColor.BLUE + "Checking spell cast objective for crafting of " + ChatColor.GOLD + wand.getName() +
-                ChatColor.BLUE + " with " + ChatColor.YELLOW + quester.currentQuests.size() +
+                ChatColor.BLUE + " with " + ChatColor.YELLOW + quester.getCurrentQuests().size() +
                 ChatColor.BLUE + " active quests", 5);
 
-        for (Quest quest : quester.currentQuests.keySet()) {
+        for (Quest quest : quester.getCurrentQuests().keySet()) {
             Map<String, Object> map = null;
             try {
-                map = getDatamap(player, this, quest);
+                map = getDataForPlayer(player, this, quest);
             } catch (Exception ex) {
                 map = null;
             }

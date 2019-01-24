@@ -29,8 +29,7 @@ public class MagicUpgradeReward extends CustomReward {
         this.setName("Magic Upgrade");
         this.setAuthor("NathanWolf");
         this.setRewardName("Wand Upgrade");
-        this.addData("Wand");
-        this.addDescription("Wand", "The key name of the Magic wand or upgrade item to use.");
+        this.addStringPrompt("Wand", "The key name of the Magic wand or upgrade item to use.", null);
     }
 
     @Override

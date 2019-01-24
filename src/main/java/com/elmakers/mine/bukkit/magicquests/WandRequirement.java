@@ -1,9 +1,6 @@
 package com.elmakers.mine.bukkit.magicquests;
 
-import com.elmakers.mine.bukkit.api.magic.Mage;
-import com.elmakers.mine.bukkit.api.magic.MageController;
 import com.elmakers.mine.bukkit.api.magic.MagicAPI;
-import com.elmakers.mine.bukkit.api.spell.Spell;
 import me.blackvein.quests.CustomRequirement;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;

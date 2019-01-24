@@ -29,8 +29,7 @@ public class MagicBrushReward extends CustomReward {
         this.setName("Magic Brush");
         this.setAuthor("NathanWolf");
         this.setRewardName("Material Brush");
-        this.addData("Brush");
-        this.addDescription("Brush", "The key name of the Magic material brush to give to the player.");
+        this.addStringPrompt("Brush", "The key name of the Magic material brush to give to the player.", null);
     }
 
     @Override

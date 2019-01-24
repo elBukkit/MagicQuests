@@ -28,8 +28,7 @@ public class MagicSkillPointReward extends CustomReward {
         this.setName("Magic Skill Points");
         this.setAuthor("NathanWolf");
         this.setRewardName("%Amount% SP");
-        this.addData("Amount");
-        this.addDescription("Amount", "The amount of SP to give.");
+        this.addStringPrompt("Amount", "The amount of SP to give.", null);
     }
 
     @Override
