@@ -61,7 +61,7 @@
         <dependency>
             <groupId>me.blackvein.quests</groupId>
             <artifactId>quests</artifactId>
-            <version>3.6.0</version>
+            <version>3.6.2</version>
             <scope>provided</scope>
         </dependency>
 	</dependencies>
