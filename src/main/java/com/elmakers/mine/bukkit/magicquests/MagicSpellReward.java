@@ -1,5 +1,7 @@
 package com.elmakers.mine.bukkit.magicquests;
 
+import com.elmakers.mine.bukkit.api.magic.Mage;
+import com.elmakers.mine.bukkit.api.magic.MageClass;
 import com.elmakers.mine.bukkit.api.magic.MagicAPI;
 import me.blackvein.quests.CustomReward;
 import org.bukkit.Bukkit;
@@ -30,18 +32,32 @@ public class MagicSpellReward extends CustomReward {
         this.setAuthor("NathanWolf");
         this.setRewardName("Spell");
         this.addStringPrompt("Spell", "The KEY name of the Magic spell to give to the player.", null);
+        this.addStringPrompt("Class", "The KEY name of the class to apply the spell to. If not set will be given to the player as an item.", null);
     }
 
     @Override
     public void giveReward(Player player, Map<String, Object> stringObjectMap) {
         MagicAPI api = getAPI(player.getServer());
         String spellKey = (String)stringObjectMap.get("Spell");
+        String classKey = (String)stringObjectMap.get("Class");
         if (spellKey != null) {
-            ItemStack item = api.createSpellItem(spellKey);
-            if (item != null) {
-                api.giveItemToPlayer(player, item);
+            if (classKey != null) {
+                Mage mage = api.getController().getMage(player);
+                if (mage != null) {
+                    MageClass mageClass = mage.getClass(classKey);
+                    if (mageClass != null) {
+                        mageClass.addSpell(spellKey);
+                    } else {
+                        Bukkit.getLogger().warning("Player " + player.getName() + " wants a quest reward of spell " + spellKey + " but does not have class " + mageClass);
+                    }
+                }
             } else {
-                Bukkit.getLogger().warning("Invalid spell given as Quests reward: " + spellKey);
+                ItemStack item = api.createSpellItem(spellKey);
+                if (item != null) {
+                    api.giveItemToPlayer(player, item);
+                } else {
+                    Bukkit.getLogger().warning("Invalid spell given as Quests reward: " + spellKey);
+                }
             }
         }
     }
