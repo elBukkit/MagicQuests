@@ -4,6 +4,8 @@ import com.elmakers.mine.bukkit.api.magic.Mage;
 import com.elmakers.mine.bukkit.api.magic.MageClass;
 import com.elmakers.mine.bukkit.api.magic.MagicAPI;
 import me.blackvein.quests.CustomReward;
+
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
@@ -32,23 +34,24 @@ public class MagicSpellReward extends CustomReward {
         this.setAuthor("NathanWolf");
         this.setRewardName("Spell");
         this.addStringPrompt("Spell", "The KEY name of the Magic spell to give to the player.", null);
-        this.addStringPrompt("Class", "The KEY name of the class to apply the spell to. If not set will be given to the player as an item.", null);
+        this.addStringPrompt("Class", "The KEY name of the class (or a list of classes) to apply the spell to. If not set will be given to the player as an item.", null);
     }
 
     @Override
     public void giveReward(Player player, Map<String, Object> stringObjectMap) {
         MagicAPI api = getAPI(player.getServer());
         String spellKey = (String)stringObjectMap.get("Spell");
-        String classKey = (String)stringObjectMap.get("Class");
+        String classKeyList = (String)stringObjectMap.get("Class");
         if (spellKey != null) {
-            if (classKey != null) {
+            if (classKeyList != null) {
                 Mage mage = api.getController().getMage(player);
-                if (mage != null) {
-                    MageClass mageClass = mage.getClass(classKey);
-                    if (mageClass != null) {
-                        mageClass.addSpell(spellKey);
-                    } else {
-                        Bukkit.getLogger().warning("Player " + player.getName() + " wants a quest reward of spell " + spellKey + " but does not have class " + mageClass);
+                String[] classKeys = StringUtils.split(classKeyList, ",");
+                for (String classKey : classKeys) {
+                    if (mage != null) {
+                        MageClass mageClass = mage.getClass(classKey);
+                        if (mageClass != null) {
+                            mageClass.addSpell(spellKey);
+                        }
                     }
                 }
             } else {

@@ -3,6 +3,7 @@
 # 1.3
 
  - Spell reward now has optional "Class" parameter, to add spell directly to a player's class
+ - Add MageClass requirement
 
 # 1.2
 
