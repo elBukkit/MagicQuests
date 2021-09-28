@@ -1,17 +1,20 @@
 package com.elmakers.mine.bukkit.magicquests;
 
-import com.elmakers.mine.bukkit.api.magic.Mage;
-import com.elmakers.mine.bukkit.api.magic.MageController;
-import com.elmakers.mine.bukkit.api.magic.MagicAPI;
-import com.elmakers.mine.bukkit.api.wand.Wand;
-import com.elmakers.mine.bukkit.api.wand.WandUpgradePath;
-import me.blackvein.quests.CustomRequirement;
+import java.util.Map;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.util.Map;
+import com.elmakers.mine.bukkit.api.magic.Mage;
+import com.elmakers.mine.bukkit.api.magic.MageClass;
+import com.elmakers.mine.bukkit.api.magic.MageController;
+import com.elmakers.mine.bukkit.api.magic.MagicAPI;
+import com.elmakers.mine.bukkit.api.magic.ProgressionPath;
+import com.elmakers.mine.bukkit.api.wand.Wand;
+
+import me.blackvein.quests.CustomRequirement;
 
 public class PathRequirement extends CustomRequirement {
     private static MagicAPI api;
@@ -28,34 +31,40 @@ public class PathRequirement extends CustomRequirement {
     }
 
     public PathRequirement() {
-        this.setName("Has Wand Path");
+        this.setName("Has Path");
         this.setAuthor("NathanWolf");
-        this.addStringPrompt("Wand", "The template to look at (normally 'default')", null);
+        this.addStringPrompt("Wand", "A specific wand template to look for", null);
+        this.addStringPrompt("Class", "A specific class to look for", null);
         this.addStringPrompt("Path", "What path the player must be on.", null);
     }
 
     @Override
     public boolean testRequirement(Player player, Map<String, Object> stringObjectMap) {
         MagicAPI api = getAPI(player.getServer());
-        String baseTemplate = (String)stringObjectMap.get("Wand");
-        if (baseTemplate == null || baseTemplate.isEmpty()) {
-            baseTemplate = "default";
-        }
         String pathKey = (String)stringObjectMap.get("Path");
         if (api == null || pathKey == null) return false;
 
         MageController controller = api.getController();
-        if (!controller.isMage(player)) return false;
+        Mage mage = controller.getRegisteredMage(player);
+        if (mage == null) return false;
 
-        Mage mage = api.getMage(player);
+        ProgressionPath path = null;
 
-        WandUpgradePath path = null;
-        if (baseTemplate != null)
-        {
+        // Look for a specific wand first
+        String baseTemplate = (String)stringObjectMap.get("Wand");
+        String baseClass = (String)stringObjectMap.get("Class");
+        if (baseTemplate != null && !baseTemplate.isEmpty()) {
             Wand boundWand = mage.getBoundWand(baseTemplate);
             if (boundWand != null) {
                 path = boundWand.getPath();
             }
+        } else if (baseClass != null && !baseClass.isEmpty()) {
+            MageClass mageClass = mage.getClass(baseClass);
+            if (mageClass != null) {
+                path = mageClass.getPath();
+            }
+        } else {
+            path = mage.getActiveProperties().getPath();
         }
 
         boolean isDebug = mage.getDebugLevel() > 0;
