@@ -39,16 +39,6 @@ public class PathRequirement extends CustomRequirement {
     }
 
     @Override
-    public String getName() {
-        String name = super.getName();
-        Object path = getData().get("Path");
-        if (path != null) {
-            name = name + ": " + path;
-        }
-        return name;
-    }
-
-    @Override
     public boolean testRequirement(Player player, Map<String, Object> stringObjectMap) {
         MagicAPI api = getAPI(player.getServer());
         String pathKey = (String)stringObjectMap.get("Path");
