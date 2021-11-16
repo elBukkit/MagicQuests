@@ -31,7 +31,7 @@ public class PathRequirement extends CustomRequirement {
     }
 
     public PathRequirement() {
-        this.setName("Has Path");
+        this.setName("Rank up");
         this.setAuthor("NathanWolf");
         this.addStringPrompt("Wand", "A specific wand template to look for", "");
         this.addStringPrompt("Class", "A specific class to look for", "");
