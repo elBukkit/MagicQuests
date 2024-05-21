@@ -5,14 +5,16 @@ import com.elmakers.mine.bukkit.api.magic.MageController;
 import com.elmakers.mine.bukkit.api.magic.MagicAPI;
 import com.elmakers.mine.bukkit.api.spell.Spell;
 import com.elmakers.mine.bukkit.api.wand.Wand;
-import me.blackvein.quests.CustomRequirement;
+import me.pikamug.quests.module.BukkitCustomRequirement;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Map;
+import java.util.UUID;
 
-public class ActiveSpellRequirement extends CustomRequirement {
+public class ActiveSpellRequirement extends BukkitCustomRequirement {
     private static MagicAPI api;
 
     protected static MagicAPI getAPI(Server server) {
@@ -33,19 +35,20 @@ public class ActiveSpellRequirement extends CustomRequirement {
     }
 
     @Override
-    public boolean testRequirement(Player player, Map<String, Object> stringObjectMap) {
-            MagicAPI api = getAPI(player.getServer());
-            MageController controller = api.getController();
-            String spellKey = (String)stringObjectMap.get("Spell");
-            if (spellKey != null && controller.isMage(player)) {
-                Mage mage = controller.getMage(player);
-                Wand wand = mage.getActiveWand();
-                if (wand != null) {
-                    Spell spell = wand.getActiveSpell();
-                    return (spell != null && (spell.getKey().equalsIgnoreCase(spellKey)) || spell.getName().equalsIgnoreCase(spellKey));
-                }
+    public boolean testRequirement(UUID uuid, Map<String, Object> stringObjectMap) {
+        Player player = Bukkit.getPlayer(uuid);
+        MagicAPI api = getAPI(player.getServer());
+        MageController controller = api.getController();
+        String spellKey = (String)stringObjectMap.get("Spell");
+        if (spellKey != null && controller.isMage(player)) {
+            Mage mage = controller.getMage(player);
+            Wand wand = mage.getActiveWand();
+            if (wand != null) {
+                Spell spell = wand.getActiveSpell();
+                return (spell != null && (spell.getKey().equalsIgnoreCase(spellKey)) || spell.getName().equalsIgnoreCase(spellKey));
             }
+        }
 
-            return false;
+        return false;
     }
 }

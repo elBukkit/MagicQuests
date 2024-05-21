@@ -4,11 +4,11 @@ import com.elmakers.mine.bukkit.api.event.AddSpellEvent;
 import com.elmakers.mine.bukkit.api.magic.Mage;
 import com.elmakers.mine.bukkit.api.spell.SpellTemplate;
 import com.elmakers.mine.bukkit.api.wand.Wand;
-import me.blackvein.quests.CustomObjective;
-import me.blackvein.quests.Quest;
-import me.blackvein.quests.Quester;
-import me.blackvein.quests.Quests;
 
+import me.pikamug.quests.Quests;
+import me.pikamug.quests.module.BukkitCustomObjective;
+import me.pikamug.quests.player.Quester;
+import me.pikamug.quests.quests.Quest;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -16,10 +16,8 @@ import org.bukkit.event.EventHandler;
 
 import java.util.Map;
 
-public class AddSpellObjective extends CustomObjective {
-    // .... why did Quests.getInstance need to be made non-static.. ??
+public class AddSpellObjective extends BukkitCustomObjective {
     private static Quests quests = (Quests) Bukkit.getServer().getPluginManager().getPlugin("Quests");
-
 
     public AddSpellObjective() {
         this.setName("Add Magic Spell");
@@ -36,9 +34,6 @@ public class AddSpellObjective extends CustomObjective {
         Player player = mage.getPlayer();
         if (player == null) return;
 
-        // This fails in a pretty bad way if the player is not on a quest currently
-        // There isn't a super clean way to check for this state so we'll just catch
-        // and ignore expections :\
         Quester quester = quests.getQuester(player.getUniqueId());
         if (quester == null) {
             return;
@@ -53,7 +48,7 @@ public class AddSpellObjective extends CustomObjective {
         for (Quest quest : quester.getCurrentQuests().keySet()) {
             Map<String, Object> map = null;
             try {
-                map = getDataForPlayer(player, this, quest);
+                map = getDataForPlayer(player.getUniqueId(), this, quest);
             } catch (Exception ex) {
                 map = null;
             }
@@ -85,7 +80,7 @@ public class AddSpellObjective extends CustomObjective {
             }
 
             if (isDebug) mage.sendDebugMessage(ChatColor.GREEN + "Incrementing objective for quest: " + ChatColor.GOLD + quest.getName(), 2);
-            incrementObjective(player, this, 1, quest);
+            incrementObjective(player.getUniqueId(), this, quest, 1);
         }
     }
 }

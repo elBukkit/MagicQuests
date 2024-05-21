@@ -2,8 +2,9 @@ package com.elmakers.mine.bukkit.magicquests;
 
 import com.elmakers.mine.bukkit.api.magic.MagicAPI;
 import com.elmakers.mine.bukkit.utility.ConfigurationUtils;
-import me.blackvein.quests.CustomReward;
+import me.pikamug.quests.module.BukkitCustomReward;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemoryConfiguration;
@@ -11,8 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Map;
+import java.util.UUID;
 
-public class SpellCastReward extends CustomReward {
+public class SpellCastReward extends BukkitCustomReward {
 
     // This boilerplate cannot be abstracted due to the class-scanning that Quests does
     private static MagicAPI api;
@@ -30,13 +32,14 @@ public class SpellCastReward extends CustomReward {
     public SpellCastReward() {
         this.setName("Spell Cast");
         this.setAuthor("NathanWolf");
-        this.setRewardName("Magical Event");
+        this.setDisplay("Magical Event");
         this.addStringPrompt("Spell", "The KEY name of the Magic spell to cast as the player.", null);
         this.addStringPrompt("Parameters", "Any parameters to pass to the spell on cast.", null);
     }
 
     @Override
-    public void giveReward(Player player, Map<String, Object> stringObjectMap) {
+    public void giveReward(UUID uuid, Map<String, Object> stringObjectMap) {
+        Player player = Bukkit.getPlayer(uuid);
         MagicAPI api = getAPI(player.getServer());
         String spellKey = (String)stringObjectMap.get("Spell");
         if (spellKey != null) {

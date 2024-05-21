@@ -1,7 +1,10 @@
 package com.elmakers.mine.bukkit.magicquests;
 
 import java.util.Map;
+import java.util.UUID;
 
+import me.pikamug.quests.module.BukkitCustomRequirement;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
@@ -14,9 +17,7 @@ import com.elmakers.mine.bukkit.api.magic.MagicAPI;
 import com.elmakers.mine.bukkit.api.magic.ProgressionPath;
 import com.elmakers.mine.bukkit.api.wand.Wand;
 
-import me.blackvein.quests.CustomRequirement;
-
-public class PathRequirement extends CustomRequirement {
+public class PathRequirement extends BukkitCustomRequirement {
     private static MagicAPI api;
 
     protected static MagicAPI getAPI(Server server) {
@@ -39,7 +40,8 @@ public class PathRequirement extends CustomRequirement {
     }
 
     @Override
-    public boolean testRequirement(Player player, Map<String, Object> stringObjectMap) {
+    public boolean testRequirement(UUID uuid, Map<String, Object> stringObjectMap) {
+        Player player = Bukkit.getPlayer(uuid);
         MagicAPI api = getAPI(player.getServer());
         String pathKey = (String)stringObjectMap.get("Path");
         if (api == null || pathKey == null) return false;

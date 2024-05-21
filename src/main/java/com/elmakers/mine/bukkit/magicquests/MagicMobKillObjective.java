@@ -3,11 +3,11 @@ package com.elmakers.mine.bukkit.magicquests;
 import com.elmakers.mine.bukkit.api.entity.EntityData;
 import com.elmakers.mine.bukkit.api.event.MagicMobDeathEvent;
 import com.elmakers.mine.bukkit.api.magic.Mage;
-import me.blackvein.quests.CustomObjective;
-import me.blackvein.quests.Quest;
-import me.blackvein.quests.Quester;
-import me.blackvein.quests.Quests;
 
+import me.pikamug.quests.Quests;
+import me.pikamug.quests.module.BukkitCustomObjective;
+import me.pikamug.quests.player.Quester;
+import me.pikamug.quests.quests.Quest;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -15,10 +15,8 @@ import org.bukkit.event.EventHandler;
 
 import java.util.Map;
 
-public class MagicMobKillObjective extends CustomObjective {
-    // .... why did Quests.getInstance need to be made non-static.. ??
+public class MagicMobKillObjective extends BukkitCustomObjective {
     private static Quests quests = (Quests) Bukkit.getServer().getPluginManager().getPlugin("Quests");
-
 
     public MagicMobKillObjective() {
         this.setName("Kill Magic Mob");
@@ -36,10 +34,7 @@ public class MagicMobKillObjective extends CustomObjective {
         if (player == null || mage == null) {
             return;
         }
-        
-        // This fails in a pretty bad way if the player is not on a quest currently
-        // There isn't a super clean way to check for this state so we'll just catch
-        // and ignore expections :\
+
         Quester quester = quests.getQuester(player.getUniqueId());
         if (quester == null) {
             return;
@@ -56,7 +51,7 @@ public class MagicMobKillObjective extends CustomObjective {
         for (Quest quest : quester.getCurrentQuests().keySet()) {
             Map<String, Object> map = null;
             try {
-                map = getDataForPlayer(player, this, quest);
+                map = getDataForPlayer(player.getUniqueId(), this, quest);
             } catch (Exception ex) {
                 map = null;
             }
@@ -77,7 +72,7 @@ public class MagicMobKillObjective extends CustomObjective {
             if (!mobName.equalsIgnoreCase(ChatColor.stripColor(entityData.getName())) && !mobName.equalsIgnoreCase(entityData.getKey())) continue;
 
             if (isDebug) mage.sendDebugMessage(ChatColor.GREEN + "Incrementing objective for quest: " + ChatColor.GOLD + quest.getName(), 2);
-            incrementObjective(player, this, 1, quest);
+            incrementObjective(player.getUniqueId(), this, quest, 1);
         }
     }
 }

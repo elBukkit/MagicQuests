@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# 1.4
+
+- Updated to work with Quests 5.0.0 and up
+
 # 1.3
 
  - Spell reward now has optional "Class" parameter, to add spell directly to a player's class
