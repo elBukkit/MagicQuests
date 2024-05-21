@@ -1,8 +1,11 @@
 package com.elmakers.mine.bukkit.magicquests;
 
 import java.util.Map;
+import java.util.UUID;
 
+import me.pikamug.quests.module.BukkitCustomRequirement;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -10,9 +13,7 @@ import org.bukkit.plugin.Plugin;
 import com.elmakers.mine.bukkit.api.magic.Mage;
 import com.elmakers.mine.bukkit.api.magic.MagicAPI;
 
-import me.blackvein.quests.CustomRequirement;
-
-public class MageClassRequirement extends CustomRequirement {
+public class MageClassRequirement extends BukkitCustomRequirement {
     private static MagicAPI api;
 
     protected static MagicAPI getAPI(Server server) {
@@ -33,7 +34,8 @@ public class MageClassRequirement extends CustomRequirement {
     }
 
     @Override
-    public boolean testRequirement(Player player, Map<String, Object> stringObjectMap) {
+    public boolean testRequirement(UUID uuid, Map<String, Object> stringObjectMap) {
+        Player player = Bukkit.getPlayer(uuid);
         MagicAPI api = getAPI(player.getServer());
         Mage mage = api.getController().getMage(player);
         String classKeyList = (String)stringObjectMap.get("Class");

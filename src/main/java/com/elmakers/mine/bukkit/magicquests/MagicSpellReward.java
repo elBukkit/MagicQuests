@@ -3,8 +3,8 @@ package com.elmakers.mine.bukkit.magicquests;
 import com.elmakers.mine.bukkit.api.magic.Mage;
 import com.elmakers.mine.bukkit.api.magic.MageClass;
 import com.elmakers.mine.bukkit.api.magic.MagicAPI;
-import me.blackvein.quests.CustomReward;
 
+import me.pikamug.quests.module.BukkitCustomReward;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -13,8 +13,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Map;
+import java.util.UUID;
 
-public class MagicSpellReward extends CustomReward {
+public class MagicSpellReward extends BukkitCustomReward {
 
     // This boilerplate cannot be abstracted due to the class-scanning that Quests does
     private static MagicAPI api;
@@ -32,13 +33,14 @@ public class MagicSpellReward extends CustomReward {
     public MagicSpellReward() {
         this.setName("Magic Spell");
         this.setAuthor("NathanWolf");
-        this.setRewardName("Spell");
+        this.setDisplay("Spell");
         this.addStringPrompt("Spell", "The KEY name of the Magic spell to give to the player.", null);
         this.addStringPrompt("Class", "The KEY name of the class (or a list of classes) to apply the spell to. If not set will be given to the player as an item.", null);
     }
 
     @Override
-    public void giveReward(Player player, Map<String, Object> stringObjectMap) {
+    public void giveReward(UUID uuid, Map<String, Object> stringObjectMap) {
+        Player player = Bukkit.getPlayer(uuid);
         MagicAPI api = getAPI(player.getServer());
         String spellKey = (String)stringObjectMap.get("Spell");
         String classKeyList = (String)stringObjectMap.get("Class");
